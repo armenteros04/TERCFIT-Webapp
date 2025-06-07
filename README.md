@@ -7,7 +7,12 @@
 Nuestra aplicación está diseñada para ayudar a los usuarios a planificar, 
 personalizar y registrar sus entrenamientos, además de realizar 
 un seguimiento de sus estadísticas corporales y de salud diaria. 
-También permite la creación de ejercicios personalizados y la gestión de ejercicios favoritos.
+También permite la creación de ejercicios personalizados y la gestión de ejercicios favoritos. 
+Para conocer todo el proceso de desarrollo y la información del proyecto, recomendamos leer la memoria final del mismo.
+
+![imagen Inicio](/images/home.png)
+<sup>**Imagen 1.** Página de inicio de TERCFIT
+.</sup>
 
 ### Requisitos funcionales del usuario
 - Identificarse con unas credenciales correctas
@@ -32,4 +37,8 @@ También permite la creación de ejercicios personalizados y la gestión de ejer
 - Acceder a la lista de usuarios en tiempo real
 - Así como todas las acciones que puede realizar el usuario
 
-Para conocer toda la información sobre el desarrollo y las características del proyecto recomendamos leer la memoria final del mismo.
+
+
+
+
+
