@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+    <persistence-unit name="ClubPU" transaction-type="JTA">
+
+        <!-- Fuente de datos JNDI -->
+        <jta-data-source>java:global/jdbc/gestClub</jta-data-source>
+
+        <!-- Entidades JPA -->
+        <class>com.daw.club.model.Ejercicio</class>
+        <class>com.daw.club.model.Receta</class>
+        <class>com.daw.club.model.Biometria</class>
+
+        <properties>
+            <!-- Configuración del esquema (update en lugar de drop-and-create) -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+
+            <!-- Logging de EclipseLink -->
+            <property name="eclipselink.logging.level" value="INFO"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+
+            <!-- Evita que EclipseLink cree automáticamente un proveedor de transacciones -->
+            <property name="eclipselink.target-server" value="Payara"/>
+        </properties>
+    </persistence-unit>
+</persistence>

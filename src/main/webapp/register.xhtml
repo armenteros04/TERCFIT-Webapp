@@ -1,0 +1,40 @@
+<ui:composition template="/WEB-INF/plantillas/general.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:outputStylesheet library="css" name="main.css" />
+
+    <ui:define name="title">Registro</ui:define>
+
+    <ui:define name="content">
+
+        <div class="container mt-5">
+        <div class="card shadow-lg p-4 custom-button">
+
+            <h6 style="margin-top: 20px">Las credenciales son necesarias para una versión completa de la WebApp, esto es una simple vista demo.</h6>
+            <h6 style="margin-top: 20px">Si necesitas iniciar sesión y no tienes credenciales, contacta con los desarrolladores.</h6>
+
+
+            <h:form>
+                <div class="text-center">
+                    <h:commandLink style="margin-top: 20px" class="btn btn-primary" value="Entrar como invitado" action="#{clienteCtrl.crea()}"/>
+                </div>
+            </h:form>
+        </div>
+            <h:form>
+                <p:commandButton value="¿Ya tienes credenciales ? Identifícate"
+                                 icon="pi pi-user-plus
+"
+                                 styleClass="custom-button"
+                                 style="font-size: 20px; margin-top: 20px"
+                                 action="/login?faces-redirect=true"/>
+            </h:form>
+        </div>
+
+
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <!--Enable JSF verbose error messages-->
+        <param-value>Development</param-value>
+        <!-- Other values: Production, SystemTest, UnitTest -->
+    </context-param>
+
+    <!-- Session configuration -->
+    <session-config>
+        <session-timeout>
+            30 <!-- Time in minutes to expire after the last request -->
+        </session-timeout>
+        <cookie-config>
+                <http-only>true</http-only> <!-- Prevent client side scripting from accessing/manipulating session cookie. -->
+                <secure>false</secure> <!-- true to force send over TLS connection -->
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode> <!-- This disables URL rewriting. -->
+    </session-config>
+
+    <!-- Not needed with Servlet 3.0+
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>*.jsf</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
+        <url-pattern>*.faces</url-pattern>
+    </servlet-mapping>
+-->
+    <welcome-file-list>
+        <welcome-file>index.jsf</welcome-file>
+    </welcome-file-list>
+
+
+    <!-- Creation of Datasource in Application Server -->
+    <data-source>
+        <name>java:global/jdbc/gestClub</name>
+        <class-name>org.h2.jdbcx.JdbcDataSource</class-name>
+        <url>jdbc:h2:~/h2db/dawclub;MODE=LEGACY;AUTO_SERVER=TRUE</url>
+<!--         <url>jdbc:h2:mem:dawclub;DB_CLOSE_DELAY=-1</url> -->
+        <user>dawuser</user>
+        <password>dawuser</password>
+        <initial-pool-size>2</initial-pool-size>
+        <max-pool-size>10</max-pool-size>
+        <min-pool-size>5</min-pool-size>
+    </data-source>
+
+    <!-- Realm Access Rules -->
+<!--  Remove comments for enable authentication&authorization -->
+
+    <security-constraint>
+        <display-name>CLIENTE</display-name>
+        <web-resource-collection>
+            <web-resource-name>cliente</web-resource-name>
+            <url-pattern>/cliente/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+                <role-name>CLIENTE</role-name>
+               <role-name>ADMINISTRADORES</role-name>
+           </auth-constraint>
+    </security-constraint>
+
+
+    <security-constraint>
+        <display-name>ADMINISTRADORES</display-name>
+        <web-resource-collection>
+            <web-resource-name>admin</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMINISTRADORES</role-name>
+        </auth-constraint>
+
+    </security-constraint>
+
+
+
+
+<!-- Define roles used in security-constraint rules -->
+    <security-role>
+        <role-name>CLIENTE</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>ADMINISTRADORES</role-name>
+    </security-role>
+
+
+                 <login-config>
+                <auth-method>FORM</auth-method>
+                <realm-name>file</realm-name>
+                <form-login-config>
+                    <form-login-page>/login.xhtml</form-login-page>
+                    <form-error-page>/login.xhtml?error=true</form-error-page>
+                </form-login-config>
+            </login-config>
+
+
+
+</web-app>
+

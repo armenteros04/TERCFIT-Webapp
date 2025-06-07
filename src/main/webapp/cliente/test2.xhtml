@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+        <h:head>
+            <title>Lista de Recetas</title>
+            <h:outputStylesheet name="css/main.css"/>
+            <h:outputScript name="js/validacionRecetas.js"/>
+        </h:head>
+
+        <h:body>
+            <h:form id="recetasForm">
+
+                <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Crear nueva receta" icon="pi pi-plus"
+                                         onclick="PF('nuevaRecetaDialog').show()"
+                                         styleClass="custom-button" style="margin-bottom: 10px"/>
+
+                        <p:button value="Visualizar recetas del sistema" icon="pi pi-eye"
+                                  outcome="/cliente/receta"
+                                  styleClass="custom-button" style="margin-left: 10px; margin-top: -10px"/>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <!-- Tabla de Recetas -->
+                <p:dataTable id="recetasTable" var="receta" value="#{recetaController.recetas}"
+                             emptyMessage="No se encontraron recetas"
+                             paginator="true" rows="10" paginatorPosition="bottom"
+                             editable="true"
+                             editMode="row">
+
+                    <p:ajax event="rowEdit" listener="#{recetaController.actualizarReceta(receta)}" update="recetasTable msgs"/>
+
+                    <p:column headerText="Nombre">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{receta.nombre}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{receta.nombre}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Ingredientes">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{receta.ingredientes}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{receta.ingredientes}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Pasos">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{receta.pasos}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{receta.pasos}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Calorías">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{receta.calorias}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{receta.calorias}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Proteína (g)">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{receta.proteina}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{receta.proteina}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Grasa (g)">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{receta.grasa}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{receta.grasa}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Carbohidratos (g)">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{receta.carbohidratos}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{receta.carbohidratos}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Fibra (g)">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{receta.fibra}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{receta.fibra}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Imagen">
+                        <p:graphicImage value="/resources/images/#{receta.imagen}" height="50"/>
+                    </p:column>
+
+                    <p:column headerText="Acciones">
+                        <p:commandButton value="Eliminar" action="#{recetaController.eliminarReceta(receta)}"
+                                         update="recetasTable" styleClass="custom-button" immediate="true" icon="pi pi-trash">
+                            <p:confirm header="Confirmación" message="¿Seguro que deseas eliminar esta receta?" icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+                    </p:column>
+
+                    <p:column style="width:50px">
+                        <p:rowEditor/>
+                    </p:column>
+                </p:dataTable>
+
+                <!-- Dialog for Adding a New Recipe -->
+                <p:dialog header="Agregar Receta" widgetVar="nuevaRecetaDialog" modal="true" showEffect="fade"  resizable="false"
+                          width="600" height="500" styleClass="custom-dialog">
+
+                    <p:messages id="mensajesDialogo" showDetail="true" autoUpdate="true"/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel for="nombre" value="Nombre:"/>
+                        <p:inputText id="nombre" value="#{recetaController.nuevaReceta.nombre}" required="true"/>
+
+                        <h:outputLabel for="ingredientes" value="Ingredientes (separados por comas):"/>
+                        <p:inputText id="ingredientes" value="#{recetaController.nuevaReceta.ingredientes}" required="true"/>
+
+                        <h:outputLabel for="pasos" value="Pasos:"/>
+                        <p:inputText id="pasos" value="#{recetaController.nuevaReceta.pasos}" required="true"/>
+
+                        <h:outputLabel for="calorias" value="Calorías:"/>
+                        <p:inputText id="calorias" value="#{recetaController.nuevaReceta.calorias}" required="true">
+                        <f:validateLongRange minimum="0" maximum="2147483647" />
+                        </p:inputText>
+
+                        <h:outputLabel for="proteina" value="Proteína (g):"/>
+                        <p:inputText id="proteina" value="#{recetaController.nuevaReceta.proteina}" required="true">
+                            <f:validateLongRange minimum="0" maximum="2147483647" />
+                        </p:inputText>
+
+                        <h:outputLabel for="grasa" value="Grasa (g):"/>
+                        <p:inputText id="grasa" value="#{recetaController.nuevaReceta.grasa}" required="true">
+                            <f:validateLongRange minimum="0" maximum="2147483647" />
+                        </p:inputText>
+
+                        <h:outputLabel for="carbohidratos" value="Carbohidratos (g):"/>
+                        <p:inputText id="carbohidratos" value="#{recetaController.nuevaReceta.carbohidratos}" required="true">
+                            <f:validateLongRange minimum="0" maximum="2147483647" />
+                        </p:inputText>
+
+                        <h:outputLabel for="fibra" value="Fibra (g):"/>
+                        <p:inputText id="fibra" value="#{recetaController.nuevaReceta.fibra}" required="true">
+                            <f:validateLongRange minimum="0" maximum="2147483647" />
+                        </p:inputText>
+
+                        <h:outputLabel for="imagen" value="Imagen URL:"/>
+                        <p:inputText id="imagen" value="#{recetaController.nuevaReceta.imagen}" required="true"/>
+                    </h:panelGrid>
+                    <p:commandButton value="Guardar"
+                                     action="#{recetaController.agregarReceta}"
+                                     update="recetasTable mensajesDialogo msgs"
+                                     styleClass="custom-button"
+                                     process="@form"
+                                     oncomplete="if (!args.validationFailed &amp;&amp; validarFormularioReceta()) PF('nuevaRecetaDialog').hide();"
+                                     onclick="return validarFormularioReceta();" />
+
+                    <p:commandButton value="Cancelar" onclick="PF('nuevaRecetaDialog').hide()" type="button" styleClass="custom-button"/>
+                </p:dialog>
+
+
+
+            </h:form>
+
+            <!-- Confirmación para eliminar recetas -->
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes custom-button" icon="pi pi-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no custom-button" icon="pi pi-times"/>
+            </p:confirmDialog>
+
+        </h:body>
+</html>

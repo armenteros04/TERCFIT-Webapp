@@ -1,0 +1,48 @@
+<ui:composition
+        xmlns:h="jakarta.faces.html"
+        xmlns:ui="jakarta.faces.facelets" xmlns:p="jakarta.faces.passthrough"
+        template="/WEB-INF/plantillas/general.xhtml"
+        xmlns:f="jakarta.faces.core">
+
+    <ui:define name="content">
+
+        <!-- Retrieve query-string parameters -->
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:viewParam name="id" value="#{clienteCtrl.cliente.id}"/>
+                <f:viewAction action="#{clienteCtrl.recupera()}" />
+            </f:metadata>
+        </ui:define>
+
+        <h1>Editar Cliente</h1>
+
+        <h:messages warnClass="text-warning" infoClass="text-info" errorClass="text-danger"/>
+
+        <ui:fragment rendered="#{clienteCtrl.cliente != null}">
+            <h:form styleClass="" id="formCliente">
+                <h3>ID: <h:outputText value="#{clienteCtrl.cliente.id}" /></h3><h:inputHidden value="#{clienteCtrl.cliente.id}"/>
+                <label>Nombre:</label> <h:inputText styleClass="form-control" label="Nombre" id="idNombre" value="#{clienteCtrl.cliente.nombre}" required="true" />
+                <p><h:message styleClass="form-text text-danger" for="idNombre" /></p>
+                <label>DNI:</label> <h:inputText styleClass="form-control" label="DNI" id="idDNI" value="#{clienteCtrl.cliente.dni}" required="true" />
+                <p><h:message styleClass="form-text text-danger" for="idDNI" /></p>
+                <div class="form-group form-check">
+                    <h:selectBooleanCheckbox styleClass="form-check-input" value="#{clienteCtrl.cliente.socio}" />
+                    <label class="form-check-label">Socio:</label>
+                </div>
+                <label>Fecha de Nacimiento:</label>
+                <h:inputText p:type="date" styleClass="form-control" label="FNac" id="idFNac" value="#{clienteCtrl.cliente.fechaNacimiento}">
+                    <f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+                </h:inputText>
+                <p><h:message styleClass="form-text text-danger" for="idFNac" /></p>
+                <h:commandButton styleClass="btn btn-primary" value="Guardar" action="#{clienteCtrl.guarda}"/>
+                <h:button styleClass="btn btn-cancel" value="Cancelar" outcome="listado" />
+            </h:form>
+        </ui:fragment>
+    </ui:define>
+
+    <ui:define name="left">
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item"><h:link value="Volver" outcome="index" class="nav-link "/></li>
+        </ul>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script src="/resources/js/htmx.min.js"></script>
+
+    <h:outputStylesheet library="webjars" name="bootstrap/4.4.1/css/bootstrap.min-jsf.css" />
+    <h:outputStylesheet library="css" name="main.css" />
+    <h:outputStylesheet library="css" name="motion.css"/>
+    <h:outputStylesheet library="css" name="info.css"/>
+    <h:outputScript library="webjars" name="jquery/3.0.0/jquery.js" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/main.css"/>
+
+    <title>TERCFIT | Bienvenida</title>
+</h:head>
+
+<h:body lang="es">
+    <!-- Encabezado con logo, título y menú -->
+    <header class="header-container">
+        <h:graphicImage library="images" name="letras.png" width="200" height="65"/>
+
+        <!-- Botón de menú hamburguesa -->
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <i class="bi bi-list" style="font-size: 30px;"></i>
+        </button>
+
+        <nav class="nav-buttons" id="navMenu">
+
+            <h:form>
+                <p:commandButton value="Inicio"
+                                 icon="pi pi-home"
+                                 styleClass="custom-button"
+                                 style="font-size: 20px;"
+                                 action="/index?faces-redirect=true"/>
+            </h:form>
+
+
+
+            <h:form>
+                <p:commandButton value="Identificarse"
+                                 icon="pi pi-sign-in"
+                                 styleClass="custom-button"
+                                 style="font-size: 20px;"
+                                 action="/cliente/home?faces-redirect=true"/>
+            </h:form>
+        </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <ui:insert name="content">
+            <h1>Bienvenidos a TERCFIT</h1>
+            <p>Explora las opciones en la parte superior.</p>
+        </ui:insert>
+    </main>
+
+    <script>
+            function validarFormulario(formId, errorId) {
+            let form = document.getElementById(formId);
+            let inputs = form.querySelectorAll("input[required]");
+            let errorDiv = document.getElementById(errorId);
+            let camposVacios = false;
+
+            // Recorrer los campos y comprobar si están vacíos
+            inputs.forEach(input => {
+            if (input.value.trim() === "") {
+            camposVacios = true;
+        }
+        });
+
+
+            if (camposVacios) {
+            errorDiv.innerHTML = "⚠️ Todos los campos son obligatorios.";
+            errorDiv.style.color = "red";
+            return false; // Evita el envío del formulario
+        }
+
+            // Si no hay campos vacíos, limpia el mensaje de error y permite el envío
+            errorDiv.innerHTML = "";
+            return true;
+        }
+
+    function toggleMenu() {
+    let menu = document.getElementById("navMenu");
+    menu.classList.toggle("active");
+    }
+</script>
+
+</h:body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html
+      xmlns:cc="jakarta.faces.composite" xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <!-- Sample Composite component for rendering a entity -->
+    
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="value" class="com.daw.club.model.Cliente"/>
+    </cc:interface>
+    
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <ul class="panel-body list-group">
+
+            <li class="list-group-item"><strong>ID:</strong> #{cc.attrs.value.id}</li>
+            <li class="list-group-item"><strong>Nombre:</strong> #{cc.attrs.value.nombre}</li>
+            <li class="list-group-item"><strong>DNI:</strong> #{cc.attrs.value.dni}</li>
+            <li class="list-group-item"><strong>Socio:</strong> #{cc.attrs.value.socio?"Sí":"No"}</li>
+            <li class="list-group-item"><strong>Fecha nacimiento: </strong>
+                <h:outputText value="#{cc.attrs.value.fechaNacimiento}">
+                    <f:convertDateTime type="localDate" dateStyle="long" />
+                </h:outputText>
+            </li>
+        </ul>
+
+    </cc:implementation>
+</html>

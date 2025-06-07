@@ -1,0 +1,45 @@
+<ui:composition template="/WEB-INF/plantillas/general.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:outputStylesheet library="css" name="main.css" />
+
+    <ui:define name="title">Login</ui:define>
+
+    <ui:define name="content">
+
+
+        <div class="container mt-5">
+            <div class="card shadow-lg p-4 custom-button">
+                <h2 class="text-center mb-4">Introduce las credenciales</h2>
+                <h:panelGroup rendered="#{param.error!=null}">
+                    <div class="alert alert-danger text-center ">Error de autenticación</div>
+                </h:panelGroup>
+                <form action="j_security_check" method="post">
+                    <div class="mb-3 text-center">
+                        <input type="text" name="j_username" class="form-control w-50 mx-auto"  placeholder="Usuario" style="border: 1px solid black"/>
+                    </div>
+                    <div class="mb-3 text-center">
+                        <input type="password" name="j_password" class="form-control w-50 mx-auto " placeholder="Contraseña" style="border: 1px solid black"/>
+                    </div>
+                    <div class="text-center">
+
+                        <input type="submit" value="Acceder" class="btn btn-primary custom-button"/>
+                    </div>
+                </form>
+            </div>
+            <h:form>
+                <p:commandButton value="¿No tienes credenciales? Entra como invitado"
+                                 icon="pi pi-user-plus
+"
+                                 styleClass="custom-button"
+                                 style="font-size: 20px; margin-top: 20px"
+                                 action="/register?faces-redirect=true"/>
+            </h:form>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

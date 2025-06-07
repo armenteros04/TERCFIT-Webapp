@@ -1,0 +1,99 @@
+<ui:composition template="/WEB-INF/plantillas/logueado.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:head>
+            <title>Recetas Saludables</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+            <link rel="stylesheet" type="text/css" href="../resources/css/ejercicio.css"/>
+            <link rel="stylesheet" type="text/css" href="../resources/css/main.css"/>
+
+            <script>
+                function modifyValue(element, change) {
+                    var value = parseInt(element.innerText, 10) + change;
+                    if (value > 0) {
+                        element.innerText = value;
+                    }
+                }
+            </script>
+        </h:head>
+
+        <h:body>
+            <h:form>
+                <p:commandButton value="Nueva receta"
+                                 icon="pi pi-save"
+                                 styleClass="custom-button"
+                                 style="font-size: 20px;"
+                                 action="/cliente/test2?faces-redirect=true"/>
+
+                <div class="container">
+                    <ui:repeat value="#{recetaController.recetas}" var="receta">
+                        <div class="exercise-card">
+                            <h:graphicImage value="/resources/images/#{receta.imagen}"
+                                            style="width: 200px; height: 200px; display: block; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto"/>
+                            <div class="exercise-content">
+                                <h3>#{receta.nombre}</h3>
+                                <p>Valor nutricional por ración:</p>
+                                <br/>
+                                <p>#{receta.calorias} calorías</p>
+                                <p>#{receta.proteina}g de proteína</p>
+                                <p>#{receta.grasa}g de grasa</p>
+                                <p>#{receta.carbohidratos}g de carbohidratos</p>
+                                <p>#{receta.fibra}g de fibra.</p>
+                                <br/>
+                                <p:commandButton value="Más detalles"
+                                                 icon="pi pi-search"
+                                                 styleClass="custom-button"
+                                                 style="font-size: 13px; margin-left: auto; margin-top: 40px"
+                                                 onclick="$('#ingredientesModal#{receta.id}').modal('show'); return false;" />
+                            </div>
+                        </div>
+
+                        <!-- Modal for each recipe -->
+                        <div class="modal fade" id="ingredientesModal#{receta.id}" tabindex="-1"
+                             aria-labelledby="ingredientesModalLabel#{receta.id}" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ingredientesModalLabel#{receta.id}">#{receta.nombre}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="text-align: left">
+                                        <div class="row">
+                                            <div class="col-md-5 d-flex align-items-center">
+                                                <h:graphicImage value="/resources/images/#{receta.imagen}"
+                                                                class="img-fluid rounded mx-auto"
+                                                                alt="#{receta.nombre}"/>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="section">
+                                                    <h4>Ingredientes</h4>
+                                                    <h:outputText value="#{receta.ingredientes}" escape="false"/>
+                                                </div>
+                                                <div class="section mt-3">
+                                                    <h4>Pasos a seguir</h4>
+                                                    <h:outputText value="#{receta.pasos}" escape="false"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>
+            </h:form>
+
+            <!-- Bootstrap JS and dependencies -->
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        </h:body>
+    </ui:define>
+</ui:composition>

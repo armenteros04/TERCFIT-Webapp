@@ -1,0 +1,53 @@
+<ui:composition
+        xmlns:h="jakarta.faces.html"
+        xmlns:ui="jakarta.faces.facelets"
+        template="/WEB-INF/plantillas/logueado.xhtml"
+        xmlns:p="http://primefaces.org/ui">
+
+    <h:outputStylesheet name="css/main.css"/>
+    <h:outputStylesheet library="webjars" name="bootstrap/4.4.1/css/bootstrap.min-jsf.css" />
+    <h:outputStylesheet library="css" name="main.css" />
+    <h:outputStylesheet library="css" name="motion.css"/>
+    <h:outputStylesheet library="css" name="info.css"/>
+    <h:outputScript library="webjars" name="jquery/3.0.0/jquery.js" />
+
+
+
+
+    <ui:define name="content">
+
+        <div class="content-container">
+            <div class="content-box">
+                <h2 class="small-text" style="font-size: 24px; font-weight: bold;">Empieza el cambio 🥇</h2>
+                <p style="font-size: 20px">Descubre nuestra app web diseñada para ayudarte a mejorar tu bienestar físico y mental.</p>
+
+                <img src="../resources/images/movil.png" alt="Logo" style="width: 100%; max-width: 300px; height: 200px; object-fit: cover; margin-top: 20px; border-radius: 15px;"/>
+            </div>
+
+            <div class="content-box">
+                <h2 class="small-text" style="font-size: 24px; font-weight: bold;">Mantente en forma 🤸🏻‍♂️</h2>
+                <p style="font-size: 20px">Registra tus entrenos definiendo tu objetivo y mejorar cada día para alcanzar tu mejor versión.</p>
+                <img src="../resources/images/gym.png" alt="Logo" style="width: 100%; max-width: 300px; height: 200px; object-fit: cover; margin-top: 20px; border-radius: 15px;"/>
+            </div>
+
+            <div class="content-box">
+                <h2 class="small-text" style="font-size: 24px; font-weight: bold;">Mejora tu alimentación 🥝</h2>
+                <p style="font-size: 20px">Accede a recetas saludables y planes de alimentación diseñados para ti, próximamente ...</p>
+                <img src="../resources/images/food.png" alt="Logo" style="width: 100%; max-width: 300px; height: 200px; object-fit: cover; margin-top: 20px; border-radius: 15px;"/>
+            </div>
+        </div>
+
+
+        <h:form>
+            <p:commandButton value="Más información sobre TercFit"
+                             icon="pi pi-info-circle"
+                             styleClass="custom-button"
+                             style="font-size: 20px;"
+                             action="/altacliente/info?faces-redirect=true"/>
+        </h:form>
+
+
+    </ui:define>
+    <ui:define name="left">
+    </ui:define>
+</ui:composition>

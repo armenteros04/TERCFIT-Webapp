@@ -1,0 +1,30 @@
+@keyframes aparecerMoverConsumir {
+    /* Fase de aparición (0% a 20%) */
+    0% {
+        transform: translateX(-100%);
+        clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+    }
+    20% {
+        transform: translateX(-100%);
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    /* Fase de movimiento (20% a 80%) */
+    80% {
+        transform: translateX(100%);
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    /* Fase de consumo (80% a 100%) */
+    100% {
+        transform: translateX(100%);
+        clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
+    }
+
+}
+
+.logo {
+    display: block;
+    margin: 0 auto;
+    animation: aparecerMoverConsumir 8s linear infinite;
+}

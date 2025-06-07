@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:p="http://primefaces.org/ui">
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscador de Ejercicios con HTMX</title>
+  <!-- HTMX desde CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.12/htmx.min.js"></script>
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="../resources/css/styles.css">
+
+</head>
+<body>
+<h1>Buscador de Ejercicios</h1>
+
+
+<div class="search-container">
+
+  <button style="font-size: 12px" class="btn-custom" onclick="window.location.href='./ejercicio.xhtml';">Volver a los ejercicios</button>
+
+  <input
+          type="text"
+          name="search"
+          placeholder="Buscar ejercicios..."
+          hx-post="/search"
+          hx-trigger="keyup changed delay:200ms, load"
+          hx-target="#results"
+          hx-indicator=".htmx-indicator">
+  <div class="htmx-indicator">Buscando...</div>
+</div>
+
+<!-- Aquí se mostrarán los resultados -->
+<div
+        id="results">
+
+</div>
+
+<!-- Script con los datos y la lógica -->
+<script src="../resources/js/data.js"></script>
+<script src="../resources/js/app.js"></script>
+</body>
+</html>

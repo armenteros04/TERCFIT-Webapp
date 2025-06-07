@@ -1,0 +1,75 @@
+.d-flex {
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+/* Equipo Section */
+.equipo-section {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Member Profile */
+.member-profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Member Image */
+.member-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Member Info Section */
+.member-info {
+    margin-left: 15px;
+}
+
+/* Misión Section */
+.mission-section {
+    flex: 1;
+    min-height: 200%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Asegurar que los elementos no varíen su ancho */
+.position-relative.d-flex.align-items-center.border.border-dark.p-0.rounded {
+    width: 300px !important;
+    height: 120px !important;
+    flex-shrink: 0;
+}
+
+@media (max-width: 770px) {
+    .d-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .position-relative.d-flex.align-items-center.border.border-dark.p-0.rounded {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    .position-relative.d-flex.align-items-center.border.border-dark.p-0.rounded .member-info {
+        text-align: left;
+    }
+}

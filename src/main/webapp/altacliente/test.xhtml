@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Lista de Ejercicios</title>
+    <h:outputStylesheet name="css/main.css"/>
+</h:head>
+
+<h:body>
+    <h:form id="ejerciciosForm">
+        <p:growl id="msgs" showDetail="true"/>
+
+        <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton value="Crear nuevo ejercicio" icon="pi pi-plus"
+                                 actionListener="#{ejercicioController.prepararNuevoEjercicio}"
+                                 oncomplete="PF('nuevoEjercicioDialog').show()"
+                                 styleClass="custom-button" style="margin-bottom: 10px"/>
+
+                <p:button value="Visualizar ejercicios del sistema" icon="pi pi-eye"
+                          outcome="/altacliente/ejercicio"
+                          styleClass="custom-button" style="margin-left: 10px; margin-top: -10px"/>
+            </p:toolbarGroup>
+        </p:toolbar>
+
+        <!-- Tabla de Ejercicios -->
+        <p:dataTable id="ejerciciosTable" var="ejercicio" value="#{ejercicioController.ejercicios}"
+                     emptyMessage="No se encontraron ejercicios"
+                     paginator="true" rows="10" paginatorPosition="bottom"
+                     editable="true">
+
+            <p:ajax event="rowEdit" listener="#{ejercicioController.actualizarEjercicio}" update="ejerciciosTable"/>
+
+            <p:column headerText="Nombre">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{ejercicio.nombre}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{ejercicio.nombre}" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Descripción">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{ejercicio.descripcion}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{ejercicio.descripcion}" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Grupo Muscular">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{ejercicio.grupoMuscular}"/></f:facet>
+                    <f:facet name="input">
+                        <p:selectOneMenu value="#{ejercicio.grupoMuscular}">
+                            <f:selectItems value="#{ejercicioController.grupoMuscularValues}" var="grupo" itemLabel="#{grupo}" itemValue="#{grupo}"/>
+                        </p:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Acciones">
+                <p:commandButton value="Eliminar" action="#{ejercicioController.eliminarEjercicio(ejercicio)}"
+                                 update="ejerciciosTable" styleClass="custom-button" immediate="true" icon="pi pi-trash">
+                    <p:confirm header="Confirmación" message="¿Seguro que deseas eliminar este ejercicio?" icon="pi pi-exclamation-triangle"/>
+                </p:commandButton>
+            </p:column>
+
+            <p:column style="width:50px">
+                <p:rowEditor/>
+            </p:column>
+        </p:dataTable>
+
+        <!-- Diálogo para agregar un nuevo ejercicio -->
+        <p:dialog header="Agregar Ejercicio" widgetVar="nuevoEjercicioDialog" modal="true" showEffect="fade">
+            <h:panelGrid columns="2">
+                <h:outputLabel for="nombre" value="Nombre:"/>
+                <p:inputText id="nombre" value="#{ejercicioController.nuevoEjercicio.nombre}"/>
+
+                <h:outputLabel for="descripcion" value="Descripción:"/>
+                <p:inputText id="descripcion" value="#{ejercicioController.nuevoEjercicio.descripcion}"/>
+
+                <h:outputLabel for="grupoMuscular" value="Grupo Muscular:"/>
+                <p:selectOneMenu id="grupoMuscular" value="#{ejercicioController.nuevoEjercicio.grupoMuscular}">
+                    <f:selectItems value="#{ejercicioController.grupoMuscularValues}" var="grupo" itemLabel="#{grupo}" itemValue="#{grupo}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+
+            <p:commandButton value="Guardar" action="#{ejercicioController.agregarEjercicio}" styleClass="custom-button"
+                             update="ejerciciosTable" oncomplete="PF('nuevoEjercicioDialog').hide()"  style="margin-right: 10px; margin-top: 10px"/>
+            <p:commandButton value="Cancelar" onclick="PF('nuevoEjercicioDialog').hide()" type="button" styleClass="custom-button"/>
+        </p:dialog>
+
+    </h:form>
+
+    <!-- Confirmación para eliminar ejercicios -->
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes custom-button" icon="pi pi-check"/>
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no custom-button" icon="pi pi-times"/>
+    </p:confirmDialog>
+
+</h:body>
+</html>

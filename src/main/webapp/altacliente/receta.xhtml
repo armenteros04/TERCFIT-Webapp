@@ -1,0 +1,340 @@
+<ui:composition template="/WEB-INF/plantillas/altacliente.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:head>
+            <title>Entrenamientos Tercfit</title>
+
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+            <link rel="stylesheet" type="text/css" href="../resources/css/ejercicio.css"/>
+            <link rel="stylesheet" type="text/css" href="../resources/css/main.css"/>
+
+
+            <script>
+                function modifyValue(element, change) {
+                    var value = parseInt(element.innerText, 10) + change;
+                    if (value > 0) {
+                        element.innerText = value;
+                    }
+                }
+            </script>
+
+        </h:head>
+
+        <h:body>
+            <h:form>
+
+                <h:form>
+                    <p:commandButton value="Nueva receta"
+                                     icon="pi pi-save"
+                                     styleClass="custom-button"
+                                     style="font-size: 20px;"
+                                     action="/altacliente/test2?faces-redirect=true"/>
+                </h:form>
+
+
+                <div class="container">
+                    <!-- Receta 1 -->
+                    <div class="exercise-card">
+                        <img src="../resources/images/avenaMoca.png" style="width: 200px; height: 200px; display: block; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto "/>
+                        <div class="exercise-content">
+                            <h3>Avena Moca</h3>
+                            <p>Valor nutricional por ración: </p>
+                            <br/>
+                            <p>483 calorías</p>
+                            <p>37g de proteína</p>
+                            <p>15g de grasa</p>
+                            <p>54g de carbohidratos</p>
+                            <p>11g de fibra.</p>
+                            <br/>
+                            <p:commandButton value="Más detalles"
+                                             icon="pi pi-search"
+                                             styleClass="custom-button"
+                                             style="font-size: 13px; margin-left: auto; margin-top: 40px"
+                                             onclick="$('#ingredientesModal1').modal('show'); return false;" />
+                        </div>
+                    </div>
+
+                    <!-- Modal para Receta 1 -->
+                    <div class="modal fade" id="ingredientesModal1" tabindex="-1" aria-labelledby="ingredientesModalLabel1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg"> <!-- Aumentamos el tamaño del modal -->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ingredientesModalLabel1">Avena Moca</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&#215;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="text-align: left">
+                                    <div class="row">
+                                        <!-- Imagen de la receta en grande, centrada verticalmente -->
+                                        <div class="col-md-5 d-flex align-items-center">
+                                            <img src="../resources/images/avenaMoca.png" class="img-fluid rounded mx-auto" alt="Avena Moca"/>
+                                        </div>
+
+                                        <!-- Contenido a la derecha (Ingredientes y Pasos) -->
+                                        <div class="col-md-7">
+                                            <!-- Sección de Ingredientes -->
+                                            <div class="section">
+                                                <h4>Ingredientes</h4>
+                                                <ul>
+                                                    <li>1 taza de avena</li>
+                                                    <li>1 cucharada de cacao en polvo</li>
+                                                    <li>1 cucharada de café instantáneo</li>
+                                                    <li>1 taza de leche</li>
+                                                    <li>1 cucharada de miel</li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- Sección de Pasos a seguir -->
+                                            <div class="section mt-3">
+                                                <h4>Pasos a seguir</h4>
+                                                <ol>
+                                                    <li>Calentar la leche en una olla.</li>
+                                                    <li>Añadir la avena y cocinar a fuego medio.</li>
+                                                    <li>Agregar el cacao y el café, mezclando bien.</li>
+                                                    <li>Endulzar con miel y servir caliente.</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Receta 2 -->
+                    <div class="exercise-card">
+                        <img src="../resources/images/tortitas.png" style="width: 200px; height: 200px; display: block; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto "/>
+                        <div class="exercise-content">
+                            <h3>Tortitas con cheesecake de cereza</h3>
+                            <p>Valor nutricional por ración: </p>
+                            <p>456 calorías</p>
+                            <p>25g de proteína</p>
+                            <p>24g de grasa</p>
+                            <p>42g de carbohidratos</p>
+                            <p>7g de fibra</p>
+                            <br/>
+                            <p:commandButton value="Más detalles"
+                                             icon="pi pi-search"
+                                             styleClass="custom-button"
+                                             style="font-size: 13px; margin-left: auto;"
+                                             onclick="$('#ingredientesModal2').modal('show'); return false;" />
+                        </div>
+                    </div>
+
+                    <!-- Modal para Receta 2 -->
+                    <div class="modal fade" id="ingredientesModal2" tabindex="-1" aria-labelledby="ingredientesModalLabel1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg"> <!-- Aumentamos el tamaño del modal -->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ingredientesModalLabel2">Tortitas con cheesecake de cereza</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&#215;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="text-align: left">
+                                    <div class="row">
+                                        <!-- Imagen de la receta en grande, centrada verticalmente -->
+                                        <div class="col-md-5 d-flex align-items-center">
+                                            <img src="../resources/images/tortitas.png" class="img-fluid rounded mx-auto" alt="Avena Moca"/>
+                                        </div>
+
+                                        <!-- Contenido a la derecha (Ingredientes y Pasos) -->
+                                        <div class="col-md-7">
+                                            <!-- Sección de Ingredientes -->
+                                            <div class="section">
+                                                <h4>Ingredientes</h4>
+                                                <ul>
+                                                    <li>1 taza de harina de avena</li>
+                                                    <li>1 huevo</li>
+                                                    <li>100ml de leche</li>
+                                                    <li>1 cucharada de miel</li>
+                                                    <li>Queso crema y cerezas para el topping</li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- Sección de Pasos a seguir -->
+                                            <div class="section mt-3">
+                                                <h4>Pasos a seguir</h4>
+                                                <ol>
+                                                    <li>Mezclar harina, huevo y leche hasta obtener una masa homogénea.</li>
+                                                    <li>Cocinar en una sartén a fuego medio hasta dorar.</li>
+                                                    <li>Servir con queso crema y cerezas.</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Receta 3 -->
+                    <div class="exercise-card">
+                        <img src="../resources/images/quinoa.png" style="width: 200px; height: 200px; display: block; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto "/>
+                        <div class="exercise-content">
+                            <h3>Ensalada de quinoa y pollo Tex-Mex</h3>
+                            <p>Valor nutricional por ración: </p>
+                            <p>625 calorías</p>
+                            <p>39g de proteína</p>
+                            <p>25g grasa</p><p>67g de carbohidratos</p>
+                            <p>14g de fibra.</p>
+                            <br/>
+                            <p:commandButton value="Más detalles"
+                                             icon="pi pi-search"
+                                             styleClass="custom-button"
+                                             style="font-size: 13px; margin-left: auto"
+                                             onclick="$('#ingredientesModal3').modal('show'); return false;" />
+                        </div>
+                    </div>
+
+                    <!-- Modal para Receta 3 -->
+                    <div class="modal fade" id="ingredientesModal3" tabindex="-1" aria-labelledby="ingredientesModalLabel1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg"> <!-- Aumentamos el tamaño del modal -->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ingredientesModalLabel3">Ensalada de quinoa y pollo Tex-Mex</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&#215;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="text-align: left">
+                                    <div class="row">
+                                        <!-- Imagen de la receta en grande, centrada verticalmente -->
+                                        <div class="col-md-5 d-flex align-items-center">
+                                            <img src="../resources/images/quinoa.png" class="img-fluid rounded mx-auto" alt="Avena Moca"/>
+                                        </div>
+
+                                        <!-- Contenido a la derecha (Ingredientes y Pasos) -->
+                                        <div class="col-md-7">
+                                            <!-- Sección de Ingredientes -->
+                                            <div class="section">
+                                                <h4>Ingredientes</h4>
+                                                <ul>
+                                                    <li>1 taza de quinoa</li>
+                                                    <li>150 g de pechuga de pollo</li>
+                                                    <li>½ taza de maíz dulce</li>
+                                                    <li>½ taza de frijoles negros cocidos</li>
+                                                    <li>½ pimiento rojo</li>
+                                                    <li>½ pimiento verde</li>
+                                                    <li>½ cebolla morada</li>
+                                                    <li>1 cucharada de aceite de oliva</li>
+                                                    <li>1 cucharadita de comino</li>
+                                                    <li>1 cucharadita de pimentón ahumado</li>
+                                                    <li>Zumo de 1 limón</li>
+                                                    <li>Sal y pimienta al gusto</li>
+                                                    <li>Cilantro fresco picado (opcional)</li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- Sección de Pasos a seguir -->
+                                            <div class="section mt-3">
+                                                <h4>Pasos a seguir</h4>
+                                                <ol>
+                                                    <li>Cocer la quinoa siguiendo las instrucciones del paquete y dejar enfriar.</li>
+                                                    <li>Cortar el pollo en tiras y saltearlo con aceite de oliva, comino, pimentón, sal y pimienta.</li>
+                                                    <li>Picar los pimientos y la cebolla morada en cubos pequeños.</li>
+                                                    <li>En un bol grande, mezclar la quinoa, el pollo, el maíz, los frijoles y las verduras.</li>
+                                                    <li>Aliñar con el zumo de limón y un poco más de aceite de oliva.</li>
+                                                    <li>Mezclar bien y servir con cilantro fresco si se desea.</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Receta 4 -->
+                    <div class="exercise-card">
+                        <img src="../resources/images/estofado.png" style="width: 200px; height: 200px; display: block; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto "/>
+                        <div class="exercise-content">
+                            <h3>Estofado de ternera con espelta</h3>
+                            <p>Valor nutricional por ración: </p>
+                            <p>447 calorías</p>
+                            <p>32g de proteína</p>
+                            <p>15g de grasa</p>
+                            <p>44g de carbohidratos</p>
+                            <p>7g de fibra.</p>
+                            <br/>
+                            <p:commandButton value="Más detalles"
+                                             icon="pi pi-search"
+                                             styleClass="custom-button"
+                                             style="font-size: 13px; margin-left: auto"
+                                             onclick="$('#ingredientesModal4').modal('show'); return false;" />
+                        </div>
+                    </div>
+
+                    <!-- Modal para Receta 4 -->
+                    <div class="modal fade" id="ingredientesModal4" tabindex="-1" aria-labelledby="ingredientesModalLabel1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg"> <!-- Aumentamos el tamaño del modal -->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ingredientesModalLabel4">Estofado de ternera con espelta</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&#215;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="text-align: left">
+                                    <div class="row">
+                                        <!-- Imagen de la receta en grande, centrada verticalmente -->
+                                        <div class="col-md-5 d-flex align-items-center">
+                                            <img src="../resources/images/estofado.png" class="img-fluid rounded mx-auto" alt="Avena Moca"/>
+                                        </div>
+
+                                        <!-- Contenido a la derecha (Ingredientes y Pasos) -->
+                                        <div class="col-md-7">
+                                            <!-- Sección de Ingredientes -->
+                                            <div class="section">
+                                                <h4>Ingredientes</h4>
+                                                <ul>
+                                                    <li>250 g de ternera (en trozos)</li>
+                                                    <li>1 taza de espelta</li>
+                                                    <li>1 zanahoria</li>
+                                                    <li>½ cebolla</li>
+                                                    <li>1 diente de ajo</li>
+                                                    <li>1 tomate maduro rallado</li>
+                                                    <li>½ vaso de vino tinto</li>
+                                                    <li>2 tazas de caldo de carne</li>
+                                                    <li>1 hoja de laurel</li>
+                                                    <li>1 cucharada de aceite de oliva</li>
+                                                    <li>Sal y pimienta al gusto</li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- Sección de Pasos a seguir -->
+                                            <div class="section mt-3">
+                                                <h4>Pasos a seguir</h4>
+                                                <ol>
+                                                    <li>En una olla, calentar el aceite de oliva y dorar la ternera a fuego medio-alto.</li>
+                                                    <li>Añadir la cebolla y el ajo picados, y cocinar hasta que se ablanden.</li>
+                                                    <li>Incorporar la zanahoria en rodajas y el tomate rallado, cocinar por 5 minutos.</li>
+                                                    <li>Verter el vino tinto y dejar que reduzca a la mitad.</li>
+                                                    <li>Agregar el caldo de carne, la hoja de laurel y la espelta.</li>
+                                                    <li>Cocinar a fuego lento durante unos 35-40 minutos o hasta que la carne esté tierna.</li>
+                                                    <li>Ajustar la sal y pimienta al gusto y servir caliente.</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </h:body>
+
+        <!-- Bootstrap JS y dependencias -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </ui:define>
+</ui:composition>

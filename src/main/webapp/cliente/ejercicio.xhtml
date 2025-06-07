@@ -1,0 +1,79 @@
+<ui:composition template="/WEB-INF/plantillas/logueado.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:head>
+            <title>Entrenamientos Tercfit</title>
+            <link rel="stylesheet" type="text/css" href="../resources/css/ejercicio.css"/>
+
+            <script>
+                function modifyValue(element, change) {
+                    var value = parseInt(element.innerText, 10) + change;
+                    if (value > 0) {
+                        element.innerText = value;
+                    }
+                }
+            </script>
+        </h:head>
+
+        <h:body>
+            <h:form>
+                <p:button value="Buscador de ejercicios"
+                          icon="pi pi-search"
+                          href="./busqueda.html"
+                          styleClass="custom-button"
+                          style="font-size: 20px; margin-right: 30px"/>
+
+                <p:button value="Nuevo ejercicio"
+                          icon="pi pi-save"
+                          outcome="/cliente/test"
+                          styleClass="custom-button"
+                          style="font-size: 20px;"/>
+
+                <div class="container">
+                    <ui:repeat value="#{ejercicioController.ejercicios}" var="ejercicio">
+                        <div class="exercise-card">
+                            <video autoplay="autoplay" loop="loop" muted="muted" style="width: 200px; height: 200px; display: block; margin: auto;">
+                                <source src="../resources/videos/#{ejercicio.videoUrl}" type="video/mp4"/>
+                                Tu navegador no soporta videos.
+                            </video>
+                            <div class="exercise-content">
+                                <h3>#{ejercicio.nombre}</h3>
+                                <p>#{ejercicio.descripcion}</p>
+                                <p><strong>Grupo Muscular:</strong> #{ejercicio.grupoMuscular}</p>
+
+                                <div class="controls">
+                                    <div class="counter">
+                                        <button type="button" onclick="modifyValue(this.nextElementSibling, -1)">-</button>
+                                        <span>8</span> repeticiones
+                                        <button type="button" onclick="modifyValue(this.previousElementSibling, 1)">+</button>
+                                    </div>
+                                    <div class="counter">
+                                        <button type="button" onclick="modifyValue(this.nextElementSibling, -1)">-</button>
+                                        <span>3</span> series
+                                        <button type="button" onclick="modifyValue(this.previousElementSibling, 1)">+</button>
+                                    </div>
+                                    <div class="counter">
+                                        <button type="button" onclick="modifyValue(this.nextElementSibling, -1)">-</button>
+                                        <span>20</span> KG
+                                        <button type="button" onclick="modifyValue(this.previousElementSibling, 1)">+</button>
+                                    </div>
+                                </div>
+                                <br/>
+                                <p:commandButton value="Añadir a favoritos"
+                                                 icon="pi pi-star"
+                                                 styleClass="custom-button"
+                                                 style="font-size: 13px; margin-left: auto"
+                                                 action="#{ejercicioController.anadirFavorito(ejercicio)}"/>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>

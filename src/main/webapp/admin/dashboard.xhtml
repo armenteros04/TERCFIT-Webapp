@@ -1,0 +1,64 @@
+<ui:composition template="/WEB-INF/plantillas/admin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <div class="status-box" style="background-color: white; color: black; border: 1px solid black; text-align: center; padding: 20px; ">
+
+            <h:panelGroup layout="block" style="display: flex; justify-content: flex-end; align-items: center; gap: 20px; width: 100%; margin-top: 20px;">
+
+                <h:panelGroup rendered="#{not empty request.remoteUser}">
+                    <h:form>
+                        <p:commandButton action="#{ctrlLogin.logout}"
+                                         value="Cerrar sesión"
+                                         icon="pi pi-sign-out"
+                                         styleClass="custom-button"
+                                         style="font-size: 20px;"/>
+                    </h:form>
+                </h:panelGroup>
+            </h:panelGroup>
+
+            <div class="status-box" style="border: 1px solid black; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: center;">
+                <h2><strong>Bienvenido al panel de Administrador</strong></h2>
+
+                <h3 style="text-align: center; margin-top: 50px;">Credenciales activas</h3>
+                <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-left: 20px;">
+                    <ui:repeat value="#{dashboardBean.credentialNames}" var="credential">
+                        <span style="border: 1px solid #ccc; padding: 5px 10px; border-radius: 5px; width: 100%;">#{credential}</span>
+                    </ui:repeat>
+                </div>
+            </div>
+            <div style="margin-top: 20px; text-align: center; display: flex; justify-content: center; gap: 20px;">
+                <p:commandButton value="API de Clientes"
+                                 onclick="window.location.href='/api/clientes'; return false;"
+                                 icon="pi pi-unlock"
+                                 styleClass="custom-button"
+                                 style="font-size: 20px;"/>
+
+                <p:commandButton value="API de Ejercicios"
+                                 onclick="window.location.href='/api/ejercicios'; return false;"
+                                 icon="pi pi-unlock"
+                                 styleClass="custom-button"
+                                 style="font-size: 20px;"/>
+
+                <p:commandButton value="API de Recetas"
+                                 onclick="window.location.href='/api/recetas'; return false;"
+                                 icon="pi pi-unlock"
+                                 styleClass="custom-button"
+                                 style="font-size: 20px;"/>
+
+                <p:commandButton value="Clientes Vue"
+                                 onclick="window.location.href='/admin/clientesVue.html'; return false;"
+                                 icon="pi pi-unlock"
+                                 styleClass="custom-button"
+                                 style="font-size: 20px;"/>
+
+            </div>
+        </div>
+
+
+
+    </ui:define>
+</ui:composition>

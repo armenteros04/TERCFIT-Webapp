@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Clientes</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+</head>
+<body>
+<div id="app">
+  <h2>Lista de Clientes</h2>
+  <ul>
+    <li v-for="cliente in clientes" :key="cliente.id">
+      {{ cliente.nombre }} ({{ cliente.dni }}) - Socio: {{ cliente.socio ? 'Sí' : 'No' }}
+    </li>
+  </ul>
+</div>
+
+<button onclick="window.location.href='./dashboard.jsf'">Ir a Dashboard</button>
+
+<script>
+  const { createApp, ref, onMounted } = Vue
+
+  createApp({
+    setup() {
+      const clientes = ref([])
+
+      const obtenerClientes = async () => {
+        try {
+          const res = await fetch('/api/clientes')
+          if (!res.ok) throw new Error('Error al obtener clientes')
+          clientes.value = await res.json()
+        } catch (err) {
+          console.error(err)
+        }
+      }
+
+      const redirigirDashboard = () => {
+        window.location.href = './admin/dashboard.jsf'
+      }
+
+      onMounted(() => {
+        obtenerClientes()
+        setInterval(obtenerClientes, 10000)  // Se actualiza cada 10s sin necesidad de recarcar la vista
+      })
+
+      return { clientes, redirigirDashboard }
+    }
+  }).mount('#app')
+</script>
+</body>
+</html>

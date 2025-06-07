@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Lista de Biometrías</title>
+    <h:outputStylesheet name="css/main.css"/>
+</h:head>
+
+<h:body>
+    <h:form id="biometriaForm">
+        <p:growl id="msgs" showDetail="true"/>
+
+        <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton value="Agregar Nueva Biometría" icon="pi pi-plus"
+                                 onclick="PF('nuevaBiometriaDialog').show()"
+                                 styleClass="custom-button" style="margin-bottom: 10px"/>
+
+                <p:button value="Visualizar perfil del usuario" icon="pi pi-eye"
+                          outcome="/altacliente/home"
+                          styleClass="custom-button" style="margin-left: 10px; margin-top: -10px"/>
+            </p:toolbarGroup>
+        </p:toolbar>
+
+        <!-- Tabla de Biometría -->
+        <p:dataTable id="biometriaTable" var="biometria" value="#{biometriaController.biometriaList}"
+                     emptyMessage="No se encontraron registros"
+                     paginator="true" rows="10" paginatorPosition="bottom"
+                     editable="true">
+
+            <p:ajax event="rowEdit" listener="#{biometriaController.actualizarBiometria}" update="biometriaTable"/>
+
+            <p:column headerText="Peso (kg)">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{biometria.peso}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{biometria.peso}" type="number" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Altura (m)">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{biometria.altura}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{biometria.altura}" type="number" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Edad">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{biometria.edad}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{biometria.edad}" type="number" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Horas de Sueño">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{biometria.HSuenio}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{biometria.HSuenio}" type="number" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Calorías Consumidas">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{biometria.CConsumidas}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{biometria.CConsumidas}" type="number" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Agua Consumida (litros)">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{biometria.AConsumidas}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{biometria.AConsumidas}" type="number" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Acciones">
+                <p:commandButton value="Eliminar" action="#{biometriaController.eliminarBiometria(biometria)}"
+                                 update="biometriaTable" styleClass="custom-button" immediate="true" icon="pi pi-trash">
+                    <p:confirm header="Confirmación" message="¿Seguro que deseas eliminar este registro?" icon="pi pi-exclamation-triangle"/>
+                </p:commandButton>
+            </p:column>
+
+            <p:column style="width:50px">
+                <p:rowEditor/>
+            </p:column>
+        </p:dataTable>
+
+        <!-- Diálogo para agregar una nueva biometría -->
+        <p:dialog header="Agregar Biometría" widgetVar="nuevaBiometriaDialog" modal="true" showEffect="fade">
+            <h:panelGrid columns="2">
+                <h:outputLabel for="peso" value="Peso (kg):"/>
+                <p:inputText id="peso" value="#{biometriaController.nuevaBiometria.peso}" type="number"/>
+
+                <h:outputLabel for="altura" value="Altura (m):"/>
+                <p:inputText id="altura" value="#{biometriaController.nuevaBiometria.altura}" type="number"/>
+
+                <h:outputLabel for="edad" value="Edad:"/>
+                <p:inputText id="edad" value="#{biometriaController.nuevaBiometria.edad}" type="number"/>
+
+                <h:outputLabel for="suenio" value="Horas de Sueño:"/>
+                <p:inputText id="suenio" value="#{biometriaController.nuevaBiometria.HSuenio}" type="number"/>
+
+                <h:outputLabel for="calorias" value="Calorías Consumidas:"/>
+                <p:inputText id="calorias" value="#{biometriaController.nuevaBiometria.CConsumidas}" type="number"/>
+
+                <h:outputLabel for="agua" value="Agua Consumida (litros):"/>
+                <p:inputText id="agua" value="#{biometriaController.nuevaBiometria.AConsumidas}" type="number"/>
+            </h:panelGrid>
+
+            <p:commandButton value="Guardar" action="#{biometriaController.agregarBiometria}" styleClass="custom-button"
+                             update="biometriaTable" oncomplete="PF('nuevaBiometriaDialog').hide()" style="margin-right: 10px; margin-top: 10px"/>
+            <p:commandButton value="Cancelar" onclick="PF('nuevaBiometriaDialog').hide()" type="button" styleClass="custom-button"/>
+        </p:dialog>
+    </h:form>
+
+    <!-- Confirmación para eliminar registros -->
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes custom-button" icon="pi pi-check"/>
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no custom-button" icon="pi pi-times"/>
+    </p:confirmDialog>
+</h:body>
+</html>
