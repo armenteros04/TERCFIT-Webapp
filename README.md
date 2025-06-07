@@ -10,10 +10,6 @@ un seguimiento de sus estadísticas corporales y de salud diaria.
 También permite la creación de ejercicios personalizados y la gestión de ejercicios favoritos. 
 Para conocer todo el proceso de desarrollo y la información del proyecto, recomendamos leer la memoria final del mismo.
 
-![imagen Inicio](/images/home.png)
-<sup>**Imagen 1.** Página de inicio de TERCFIT
-.</sup>
-
 ### Requisitos funcionales del usuario
 - Identificarse con unas credenciales correctas
 - Ingresar datos biométricos
@@ -36,6 +32,9 @@ Para conocer todo el proceso de desarrollo y la información del proyecto, recom
 - Acceder a la API de las recetas
 - Acceder a la lista de usuarios en tiempo real
 - Así como todas las acciones que puede realizar el usuario
+
+![imagen Inicio](/images/home.png)
+<sup>**Imagen 1.** Página de inicio de TERCFIT.</sup>
 
 
 
